@@ -1,0 +1,41 @@
+= mysql_parser - Parse MySQL statements
+
+== VERSION
+
+This documentation refers to mysql_parser version 0.0.0
+
+
+== DESCRIPTION
+
+A parser for MySQL DDL statements.
+
+
+== LINKS
+
+Documentation:: https://blackwinter.github.io/mysql_parser/
+Source code::   https://github.com/blackwinter/mysql_parser
+RubyGem::       https://rubygems.org/gems/mysql_parser
+Travis CI::     https://travis-ci.org/blackwinter/mysql_parser
+
+
+== AUTHORS
+
+* Jens Wille <mailto:jens.wille@gmail.com>
+
+
+== LICENSE AND COPYRIGHT
+
+Copyright (C) 2014 Jens Wille
+
+mysql_parser is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+mysql_parser is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
+License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with mysql_parser. If not, see <http://www.gnu.org/licenses/>.
