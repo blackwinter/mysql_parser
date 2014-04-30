@@ -2,6 +2,10 @@
 
 = Revision history for mysql_parser
 
+== 0.0.1 [2014-04-30]
+
+* First release (extracted from ruby-nuggets).
+
 == 0.0.0 [2014-04-30]
 
 * Birthday :-)
