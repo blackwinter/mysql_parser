@@ -29,11 +29,6 @@ class MysqlParser
   DEFAULT_NAME  = '__DEFAULT__'.freeze
   DEFAULT_TABLE = '__DEFAULT__'.freeze
 
-  USE_RE           = /\AUSE\s+`(.+?)`/i
-  CREATE_TABLE_RE  = /\ACREATE\s+TABLE\s+`(.+?)`/i
-  TABLE_COLUMN_RE  = /\A\s+`(.+?)`/
-  FINISH_TABLE_RE  = /\A\).*;\Z/
-  INSERT_VALUES_RE = /\AINSERT\s+INTO\s+`(.+?)`\s+(?:\((.+?)\)\s+)?VALUES\s*(.*);\Z/i
   CLEAN_COLUMNS_RE = /[\s`]+/
 
   def self.parse(input, &block)
@@ -46,11 +41,14 @@ class MysqlParser
   end
 
   def reset
-    @name         = DEFAULT_NAME
-    @table        = DEFAULT_TABLE
-    @tables       = {}
-    @columns      = Hash.new { |h, k| h[k] = [] }
-    @value_parser = ValueParser.new
+    @name             = DEFAULT_NAME
+    @table            = DEFAULT_TABLE
+
+    @tables           = {}
+    @columns          = Hash.new { |h, k| h[k] = [] }
+
+    @value_parser     = ValueParser.new
+    @statement_parser = StatementParser.new
   end
 
   attr_reader :tables
@@ -68,31 +66,33 @@ class MysqlParser
       }
     end
 
-    name, table, columns, value_parser, block_given =
-      @name, @table, @columns, @value_parser, block_given?
+    name, table, columns, statement_parser, value_parser, block_given =
+      @name, @table, @columns, @statement_parser, @value_parser, block_given?
 
     input.each { |line|
-      case line
-        when USE_RE
-          name = $1
-          yield :use, name if block_given
-        when CREATE_TABLE_RE
-          table = $1
-        when TABLE_COLUMN_RE
-          columns[table] << $1 if table
-        when FINISH_TABLE_RE
-          yield :table, name, table, columns[table] if block_given
-          table = nil
-        when INSERT_VALUES_RE
-          _table, _columns, _values = $1, $2, $3
+      statement_parser.parse(line) { |context, *data|
+        case context
+          when :use
+            name = data[0]
+            yield context, name if block_given
+          when :create
+            table = data[0]
+          when :column
+            columns[table] << data[0] if table
+          when :table
+            yield context, name, table, columns[table] if block_given
+            table = nil
+          when :insert
+            _table, _columns, _values = data
 
-          _columns = _columns.nil? ? columns[_table] :
-            _columns.gsub(CLEAN_COLUMNS_RE, '').split(',')
+            _columns = _columns.nil? ? columns[_table] :
+              _columns.gsub(CLEAN_COLUMNS_RE, '').split(',')
 
-          value_parser.parse(_values) { |values|
-            block[:insert, name, _table, _columns, values]
-          } unless _columns.empty?
-      end
+            value_parser.parse(_values) { |values|
+              block[context, name, _table, _columns, values]
+            } unless _columns.empty?
+        end
+      }
     }
 
     @name, @table = name, table
@@ -104,5 +104,6 @@ end
 
 MySQLParser = MysqlParser
 
+require_relative 'mysql_parser/statement_parser'
 require_relative 'mysql_parser/value_parser'
 require_relative 'mysql_parser/version'

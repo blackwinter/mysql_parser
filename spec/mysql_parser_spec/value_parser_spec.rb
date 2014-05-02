@@ -1,39 +1,43 @@
 describe MysqlParser::ValueParser do
 
+  def parsing(input)
+    @value_parser.parse(input)
+  end
+
   before :all do
     @value_parser = MysqlParser::ValueParser.new
   end
 
   example do
-    @value_parser.parse('').should == []
+    parsing('').should == []
   end
 
   example do
-    @value_parser.parse('(42)').should == [[42]]
+    parsing('(42)').should == [[42]]
   end
 
   example do
-    @value_parser.parse('(2.3)').should == [[2.3]]
+    parsing('(2.3)').should == [[2.3]]
   end
 
   example do
-    @value_parser.parse("('foo')").should == [['foo']]
+    parsing("('foo')").should == [['foo']]
   end
 
   example do
-    @value_parser.parse('(NULL)').should == [[nil]]
+    parsing('(NULL)').should == [[nil]]
   end
 
   example do
-    @value_parser.parse("('foo',NULL,42)").should == [['foo', nil, 42]]
+    parsing("('foo',NULL,42)").should == [['foo', nil, 42]]
   end
 
   example do
-    @value_parser.parse("('foo',NULL,42), ('bar', 'baz', 2.3)").should == [['foo', nil, 42], ['bar', 'baz', 2.3]]
+    parsing("('foo',NULL,42), ('bar', 'baz', 2.3)").should == [['foo', nil, 42], ['bar', 'baz', 2.3]]
   end
 
   example do
-    lambda { @value_parser.parse('("foo")') }.should raise_error(RuntimeError, /Unclosed row/)
+    lambda { parsing('("foo")') }.should raise_error(RuntimeError, /Unclosed row/)
   end
 
 end
