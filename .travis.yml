@@ -23,4 +23,4 @@ script:
   rake spec
 
 install:
-  gem install --development mysql_parser
+  gem install --prerelease --development mysql_parser
