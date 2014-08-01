@@ -12,7 +12,7 @@ A parser for MySQL DDL statements.
 
 == LINKS
 
-Documentation:: https://blackwinter.github.io/mysql_parser/
+Documentation:: https://blackwinter.github.com/mysql_parser
 Source code::   https://github.com/blackwinter/mysql_parser
 RubyGem::       https://rubygems.org/gems/mysql_parser
 Travis CI::     https://travis-ci.org/blackwinter/mysql_parser
