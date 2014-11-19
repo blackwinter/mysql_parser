@@ -1,4 +1,4 @@
-require File.expand_path(%q{../lib/mysql_parser/version}, __FILE__)
+require_relative 'lib/mysql_parser/version'
 
 begin
   require 'hen'
