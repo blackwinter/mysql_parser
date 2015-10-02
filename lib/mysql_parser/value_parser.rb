@@ -3,7 +3,7 @@
 #                                                                             #
 # mysql_parser -- Parse MySQL statements                                      #
 #                                                                             #
-# Copyright (C) 2014 Jens Wille                                               #
+# Copyright (C) 2014-2015 Jens Wille                                          #
 #                                                                             #
 # Authors:                                                                    #
 #     Jens Wille <jens.wille@gmail.com>                                       #
@@ -47,7 +47,7 @@ class MysqlParser
         break unless @input.scan(/,\s*/)
       end
 
-      @input.scan(/;/)  # optional
+      @input.skip(/;/)
 
       error('Unexpected data') unless @input.eos?
 
@@ -116,11 +116,8 @@ class MysqlParser
     end
 
     def error(message)
-      if @input.eos?
-        raise "Unexpected end of input (#{message})."
-      else
-        raise "#{message} at #{$.}:#{@input.pos}: #{@input.peek(16).inspect}"
-      end
+      raise @input.eos? ? "Unexpected end of input (#{message})." :
+        "#{message} at #{$.}:#{@input.pos}: #{@input.peek(16).inspect}"
     end
 
   end
