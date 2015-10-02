@@ -2,7 +2,7 @@
 
 == VERSION
 
-This documentation refers to mysql_parser version 0.0.1
+This documentation refers to mysql_parser version 0.1.0
 
 
 == DESCRIPTION
@@ -25,7 +25,7 @@ Travis CI::     https://travis-ci.org/blackwinter/mysql_parser
 
 == LICENSE AND COPYRIGHT
 
-Copyright (C) 2014 Jens Wille
+Copyright (C) 2014-2015 Jens Wille
 
 mysql_parser is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License as published by

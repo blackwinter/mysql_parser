@@ -2,6 +2,11 @@
 
 = Revision history for mysql_parser
 
+== 0.1.0 [2015-10-02]
+
+* Extracted MysqlParser::StatementParser from MysqlParser.
+* Minor refactorings.
+
 == 0.0.1 [2014-04-30]
 
 * First release (extracted from ruby-nuggets).
