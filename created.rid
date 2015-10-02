@@ -1,7 +1,8 @@
-Wed, 30 Apr 2014 12:20:47 +0200
-README	Wed, 30 Apr 2014 12:19:34 +0200
+Fri, 02 Oct 2015 12:23:07 +0200
+README	Fri, 02 Oct 2015 12:21:37 +0200
 COPYING	Wed, 30 Apr 2014 11:24:08 +0200
-ChangeLog	Wed, 30 Apr 2014 12:19:28 +0200
-lib/mysql_parser.rb	Wed, 30 Apr 2014 12:05:14 +0200
-lib/mysql_parser/version.rb	Wed, 30 Apr 2014 12:19:40 +0200
-lib/mysql_parser/value_parser.rb	Wed, 30 Apr 2014 11:51:02 +0200
+ChangeLog	Fri, 02 Oct 2015 12:21:09 +0200
+lib/mysql_parser.rb	Fri, 02 May 2014 11:32:21 +0200
+lib/mysql_parser/version.rb	Fri, 02 Oct 2015 12:22:27 +0200
+lib/mysql_parser/value_parser.rb	Fri, 02 Oct 2015 12:21:58 +0200
+lib/mysql_parser/statement_parser.rb	Fri, 02 May 2014 11:44:40 +0200
